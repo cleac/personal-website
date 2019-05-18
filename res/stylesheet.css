@@ -1,0 +1,91 @@
+body {
+  background: #2c3033;
+  color: #CCC;
+  font-family: monospace;
+  font-size: 11pt;
+  margin-top: 8vh;
+  margin-left: 4vw;
+}
+
+h1, h2 {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+h1 {
+  font-size: 1.2em;
+  color: #FFF;
+}
+
+h2 {
+  font-size: 1.1em;
+}
+
+a {
+  color: #e07373;
+}
+
+a:hover {
+  color: #a54747;
+}
+
+li {
+  display: block;
+  list-style-type: none;
+  margin-bottom: .5em;
+}
+
+ul {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 2vw;
+  padding-inline-start: 0px;
+  -webkit-padding-start: 0px;
+  padding-start: 0px;
+}
+
+p {
+  max-width: 500px;
+  margin-left: 2vw;
+}
+
+img.ava {
+  width: 128px;
+  height: 128px;
+}
+
+img.ava.ava-small {
+  width: 48px;
+  height: 48px;
+}
+
+header .ava {
+  float: left;
+}
+
+header .name {
+  float: left;
+  vertical-align: middle;
+  line-height: 48px;
+  margin-left: 8px;
+  font-size: 1.1em;
+}
+
+header {
+  display: inline-block;
+  width: 100%;
+}
+
+a h1, a h2, a h3, a h4 {
+  text-decoration: underline;
+}
+footer {
+  margin-top: 2em;
+  color: #777;
+}
+
+footer p {
+  margin-left: 0;
+  margin-bottom: 1em;
+}
+
