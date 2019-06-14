@@ -28,6 +28,59 @@
         kind. I will sometimes post random small things about what I've
         discovered and/or tried, and what is my experience about it.
       </p>
+      <log-entry id="14-june-2019">
+        <h2>14 June, 2019 - @bitwarden/cli <sup><a href="#14-june-2019">(link)</a></sup></h2>
+        <p>
+          Yesterday I've found a new fun way interesting way to install use
+          passwords I store in Bitwarden<sup><a href="#14-june-2019-link-1">1</a></sup>.
+          There is a package on npm called <b>@bitwarden/cli</b>, which gives
+          you a command line interface to access and use passwords. And it can
+          be pretty useful in fact (I used to think that you won't ever need a
+          cli interface for password manager, it's just so inconvenient - until
+          yesterday).
+        </p>
+        <p>
+          Currently, I am using it with mutt email client. I've configured it
+          such way, so I can list inbox without having a password in a
+          plaintext. Sure, there is a pass<sup><a href="#14-june-2019-link-2">2</a></sup>,
+          but I want to sync it the modern way, have too different ecosystem
+          devices to sync files (if you actually know a good way of it, feel
+          free to share it with me, look at social media<sup><a href="#14-june-2019-link-3">3</a></sup>
+          section of front page).
+        </p>
+        <p>
+          However, it is not that trivial, how can you use the bitwarden for
+          mutt. You see, after you run <b>bw unlock</b> and type your password,
+          it just prints further instructions on how can you use the session
+          key to access the vault. You can store the key in environment
+          variable <b>BW_SESSION</b> or pass as a cli argument. Both ways are
+          pretty inconvenient in mutt scenario, because you have to run
+          command, then copy session key, then paste it, then run another one
+          command. But, when you run <b>bw unlock --raw</b>, you typed
+          password, it just prints the session key. So you can pass it directly
+          into env variable or command line argument.
+        </p>
+        <p>
+          And it works nice, I've tested it both on my Android tablet and a
+          laptop I use on daily basis. It works great (however, it is a bit
+          slow due to it works on node.js, but what apps have no downsides
+          today?).
+        </p>
+        <p>
+          Links:
+          <ul>
+            <li id="14-june-2019-link-1"><a href="https://bitwarden.com/">
+              [1] bitwarden - open source password management
+            </a></li>
+            <li id="14-june-2019-link-2"><a href="https://www.passwordstore.org/">
+              [2] Pass: the standard unix password manager
+            </a></li>
+            <li id="14-june-2019-link-3"><a href="https://cleac.me/#social">
+              [3] How to contact me :D
+            </a></li>
+          </ul>
+        </p>
+      </log-entry>
       <log-entry id="10-june-2019">
         <h2>10 June, 2019 - Tile this window! <sup><a href="#10-june-2019">(link)</a></sup></h2>
         <p>
@@ -49,7 +102,7 @@
           makes all the awesome things fast and easy.
         </p>
         <p>
-          Personally I run AwesomeWM<sup><a href="#10-june-2019-link-1">[1]</a></sup>.
+          Personally I run AwesomeWM<sup><a href="#10-june-2019-link-1">1</a></sup>.
           It's light fast, simple and is scriptable in Lua. So I can make it
           reflect any workflow I have: a timer integrated in top bar, a
           floating "picture-in-picture" kimulated window, change image every
@@ -59,8 +112,8 @@
         <p>
           However, awesomewm itself is pretty simple out of box and requires
           from you some effortand coding to start using it. So you would
-          definitely try i3wm<sup><a href="#10-june-2019-link-2">[2]</a></sup>
-          or sway<sup><a href="#10-june-2019-link-3">[3]</a></sup>, if you want
+          definitely try i3wm<sup><a href="#10-june-2019-link-2">2</a></sup>
+          or sway<sup><a href="#10-june-2019-link-3">3</a></sup>, if you want
           to have wayland. They both have lots of batteries included, are fast,
           simple and do not require from you any programming skills at all.
         </p>
