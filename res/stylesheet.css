@@ -36,6 +36,16 @@ li {
   margin-bottom: .5em;
 }
 
+pre.code {
+  background: #222;
+  max-width: 800px;
+  width: wrap;
+  padding: 1em;
+  padding-left: 4vw;
+  margin-left: -4vw;
+  overflow-x: auto;
+}
+
 ul {
   margin-top: 0px;
   margin-bottom: 0px;

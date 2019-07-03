@@ -28,6 +28,70 @@
         kind. I will sometimes post random small things about what I've
         discovered and/or tried, and what is my experience about it.
       </p>
+      <log-entry id="2-july-2019">
+        <h2>2 July, 2019 - @bitwarden/cli && mail in the terminal (part 2) <sup><a href="#2-july-2019">(link)</a></sup></h2>
+        <p>
+          Some time ago I have written<sup><a href="#2-july-2019-link-1">1</a>,<a href="#2-july-2019-link-2">2</a></sup>,
+          how did I did use biwarden CLI interface to throw passwords to mutt
+          email client. There was one single thing that did bother me a lot for
+          some time: since I use several IMAP sources, I had to type the
+          password of keystore <i>every single time I switched source</i>. That
+          is not very convenient, because it slowed workflow down a lot. So,
+          I've managed to find a way to make this thing work better way (at
+          least it works faster).
+        </p>
+        <p>
+          First, I'd like to mention the previous setup. I had such a line in
+          every source:<br\>
+        </p>
+        <pre class="code">set imap_pass = `export BW_SESSION=$(bw unlock --raw) &amp;&amp; bw get password <i>uuid</i>`</pre><br\>
+        <p>
+          This is the reason, why I did need to type password every single
+          time. So've I looked at several ways of how could I solve this one.
+        </p>
+        <p>
+          There were several assumtions on how could I make this work. Mutt
+          itself allows to execute commands, store variables and very much
+          more, so my first assumtion was to try unlocking session only once
+          and reusing to get password for every source when switching to it.
+          But it didn't work, because backtick expansion does not use mutt
+          variables. So I've searched the Internet a bit and found out a fun
+          thing: mutt does execute the output of backtick expansion by default.
+        </p>
+        <p>
+          So I came up with simple script that simply generates the set of
+          variables with passwords. Here it is:
+        </p>
+<pre class="code">
+#!/usr/bin/env python3
+# gen_pwds.py
+import subprocess, getpass
+ITEMS = [ ('key', 'uuid') ]
+
+def get_command_result(*command):
+    return subprocess.run(command, capture_output=True).stdout.strip().decode('ascii')
+
+keystore_password = getpass.getpass('Enter the keystore password: ')
+key = get_command_result('bw', 'unlock', keystore_password, '--raw')
+for name, uuid in ITEMS:
+    password = get_command_result('bw', '--session', key, 'get', 'password', uuid)
+    print(f'set my_{name}_password={password}', end=';')
+</pre class="code">
+        <p>
+          Then, I put a simple line of code into basic muttrc:
+          <b>`gen_pwds.py`</b> and simply use generated variables. Easy, but a
+          bit insecure, in fact. But works for me as well.
+        </p>
+        Links:
+        <ul>
+          <li id="2-july-2019-link-1">
+            <a href="#5-june-2019">[1] Mail in the terminal (part 1) - @alexcleac</a>
+          </li>
+          <li id="2-july-2019-link-2">
+            <a href="#14-june-2019">[2] @bitwarden/cli - @alexcleac</a>
+          </li>
+        </ul>
+      </log-entry>
       <log-entry id="25-june-2019">
         <h2>25 June, 2019 - A week only on Android Linux <sup><a href="#25-june-2019">(link)</a></sup></h2>
         <p>
@@ -170,13 +234,13 @@
         <ul>
           <li id="10-june-2019-link-1"><a href="https://awesomewm.org/">
               [1] awesome window manager
-            </a></li>
-            <li id="10-june-2019-link-2"><a href="https://i3wm.org/">
-                [2] i3 - an improved tiling wm
-              </a></li>
-              <li id="10-june-2019-link-3"><a href="https://swaywm.org/">
-                  [3] sway - a tiling wayland compositor
-                </a></li>
+          </a></li>
+          <li id="10-june-2019-link-2"><a href="https://i3wm.org/">
+              [2] i3 - an improved tiling wm
+          </a></li>
+          <li id="10-june-2019-link-3"><a href="https://swaywm.org/">
+              [3] sway - a tiling wayland compositor
+          </a></li>
         </ul>
       </log-entry>
       <log-entr id="5-june-2019"y>
@@ -200,8 +264,12 @@
           application than other email clients, because it has default
           configuration that reads all the emails from local pool. And, the
           thing that bothers a lot: the first step is the hardest, because it
-          takes time and lots of documentation to read to understand that code
-          "<i>set folder = "imaps://login@server:123"</i>" does specify the
+          takes time and lots of documentation to read to understand that this
+          code:
+        </p>
+        <pre class="code">set folder = imaps://login@server:123</pre>
+        <p>
+          does specify the
           target, where do you want to read emails from. It's a bit
           counterintuitive for newcomers. But I've figured this out, and, I
           think, this should be mentioned more explicit.
